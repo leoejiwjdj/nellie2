@@ -1,41 +1,85 @@
-const fileInput = document.getElementById("file-input");
-const imageContainer = document.getElementById("image-container");
-const themeToggleButton = document.getElementById("theme-toggle");
-let currentTheme = 'light';
-
-fileInput.addEventListener("change", handleFileUpload);
-themeToggleButton.addEventListener("click", toggleTheme);
-
-function handleFileUpload(event) {
-    const files = event.target.files;
-    const rows = document.querySelectorAll('.image-row');
-    let rowIndex = 0;
-
-    for (let i = 0; i < files.length; i++) {
-        if (rowIndex > 2) {
-            break; // Max 3 rows
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            rows[rowIndex].appendChild(img);
-        }
-        reader.readAsDataURL(files[i]);
-
-        if (rows[rowIndex].children.length >= 3) {
-            rowIndex++;
-        }
-    }
+/* Allmän stil */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
 }
 
-function toggleTheme() {
-    if (currentTheme === 'light') {
-        document.body.classList.add('dark-theme');
-        currentTheme = 'dark';
-    } else {
-        document.body.classList.remove('dark-theme');
-        currentTheme = 'light';
-    }
+header {
+    text-align: center;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 10px 0;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px;
+    font-size: 1em;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#image-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.image-row {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+img {
+    max-width: 30%;
+    height: auto;
+    margin: 5px;
+    border-radius: 10px;
+    border: 2px solid gray;
+}
+
+/* För olika bakgrundsfärger */
+body.dark-theme {
+    background-color: black;
+    color: white;
+}
+
+body.dark-theme button {
+    background-color: white;
+    color: black;
+}
+
+/* Layout för en bild per rad */
+.one-column .image-row {
+    flex-direction: column;
+}
+
+.three-columns .image-row {
+    flex-direction: row;
+}
+
+/* Styla för knappar och layout */
+button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+}
+
+button:hover {
+    background-color: #e0e0e0;
 }
