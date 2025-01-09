@@ -1,71 +1,65 @@
-/* Allmän stil */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
+const fileInput = document.getElementById("file-input");
+const imageContainer = document.getElementById("image-container");
+const themeToggleButton = document.getElementById("theme-toggle");
+const oneImageLayoutButton = document.getElementById("one-image-layout");
+const threeImagesLayoutButton = document.getElementById("three-images-layout");
+
+let currentTheme = 'light';
+let currentLayout = 'three-columns';  // Standardlayouten är tre bilder per rad
+
+// Byt mellan mörkt och ljust tema
+themeToggleButton.addEventListener("click", toggleTheme);
+
+// Byt layout till en bild per rad
+oneImageLayoutButton.addEventListener("click", () => changeLayout('one-column'));
+
+// Byt layout till tre bilder per rad
+threeImagesLayoutButton.addEventListener("click", () => changeLayout('three-columns'));
+
+// Hantera bilduppladdning
+fileInput.addEventListener("change", handleFileUpload);
+
+// Växla mellan ljus och mörkt tema
+function toggleTheme() {
+    if (currentTheme === 'light') {
+        document.body.classList.add('dark-theme');
+        themeToggleButton.textContent = 'Svart bakgrund';
+        currentTheme = 'dark';
+    } else {
+        document.body.classList.remove('dark-theme');
+        themeToggleButton.textContent = 'Vit bakgrund';
+        currentTheme = 'light';
+    }
 }
 
-header {
-    text-align: center;
-    margin: 20px;
+// Ändra layout (en eller tre bilder per rad)
+function changeLayout(layout) {
+    imageContainer.classList.remove(currentLayout);
+    currentLayout = layout;
+    imageContainer.classList.add(currentLayout);
 }
 
-h1 {
-    font-size: 2em;
-    margin: 10px 0;
-}
+// Hantera filuppladdning
+function handleFileUpload(event) {
+    const files = event.target.files;
+    const rows = document.querySelectorAll('.image-row');
+    let rowIndex = 0;
 
-button {
-    padding: 10px;
-    font-size: 1em;
-    margin: 10px;
-    cursor: pointer;
-}
+    for (let i = 0; i < files.length; i++) {
+        if (rowIndex > 2) {
+            break; // Max 3 rader
+        }
 
-#image-container {
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin-top: 20px;
-}
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            rows[rowIndex].appendChild(img);
+        }
+        reader.readAsDataURL(files[i]);
 
-.image-row {
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-}
-
-img {
-    max-width: 30%;
-    height: auto;
-    margin: 5px;
-    border-radius: 10px;
-}
-
-/* För olika bakgrundsfärger */
-body.dark-theme {
-    background-color: black;
-    color: white;
-}
-
-body.dark-theme button {
-    background-color: white;
-    color: black;
-}
-
-/* Stil för när man har 1, 2 eller 3 rader */
-.two-columns .image-row {
-    flex-direction: row;
-}
-
-.three-columns .image-row {
-    flex-direction: row;
-}
-
-.one-column .image-row {
-    flex-direction: column;
+        if (rows[rowIndex].children.length >= (currentLayout === 'three-columns' ? 3 : 1)) {
+            rowIndex++;
+        }
+    }
 }
