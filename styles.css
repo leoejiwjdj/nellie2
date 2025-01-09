@@ -23,11 +23,11 @@ fileInput.addEventListener("change", handleFileUpload);
 function toggleTheme() {
     if (currentTheme === 'light') {
         document.body.classList.add('dark-theme');
-        themeToggleButton.textContent = 'Svart bakgrund';
+        themeToggleButton.textContent = 'Vit bakgrund';
         currentTheme = 'dark';
     } else {
         document.body.classList.remove('dark-theme');
-        themeToggleButton.textContent = 'Vit bakgrund';
+        themeToggleButton.textContent = 'Svart bakgrund';
         currentTheme = 'light';
     }
 }
