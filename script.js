@@ -31,6 +31,7 @@ button {
     font-size: 1em;
     margin: 5px;
     cursor: pointer;
+    width: 200px; /* Ändrar bredden för att göra knapparna enhetliga */
 }
 
 #image-container {
@@ -83,3 +84,10 @@ button {
 button:hover {
     background-color: #e0e0e0;
 }
+
+/* Fixera Filler-knappen */
+#file-input {
+    display: block;
+    margin: 20px auto;
+}
+
