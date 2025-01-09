@@ -1,1 +1,25 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min sida</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1 contenteditable="true" id="title">Min sida</h1>
+        <button id="theme-toggle">Byt tema</button>
+    </header>
 
+    <div id="image-container" class="two-columns">
+        <div class="image-row" id="row1"></div>
+        <div class="image-row" id="row2"></div>
+        <div class="image-row" id="row3"></div>
+    </div>
+
+    <input type="file" id="file-input" multiple accept="image/*">
+    
+    <script src="script.js"></script>
+</body>
+</html>
